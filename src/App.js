@@ -1,25 +1,100 @@
-import logo from './logo.svg';
 import './App.css';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
+import { AlgorithmBuilder, HardwareDesigner } from './applications';
+import TopLevelMenu from './top-level-menu/TopLevelMenu';
+import { useState, createContext } from 'react';
+
+export const TabsContext = createContext();
 
 function App() {
+
+  const [tabs, setTabs] = useState(["Algorithm", "Hardware"])
+
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const [currentTabType, setCurrentTabType] = useState()
+
+  const ApplicationMap = {
+    "Algorithm": <AlgorithmBuilder/>,
+    "Hardware": <HardwareDesigner/>
+  }
+
+  const addTab = (type) => {
+    setTabs(prevState => [...prevState, type])
+  }
+
+  const handleTabChange = (index) =>{
+    setCurrentTabType(tabs[index])
+    setTabIndex(index)
+  }
+
+
+  // Render tab panels
+  const tabComponents = []
+
+  // Render tabs
+  const tabPanelComponents = []
+  
+  const appTypeCount = {
+    "Algorithm": 0,
+    "Hardware": 0
+  }
+
+  tabs.forEach((tab) =>{
+
+    appTypeCount[tab] = appTypeCount[tab]+1
+
+    tabComponents.push(
+      <Tab key = {tab+appTypeCount[tab]} >{tab+" "+appTypeCount[tab]}</Tab>
+    )
+
+    tabPanelComponents.push(
+      <TabPanel key = {tab+"panel"+appTypeCount[tab]}>
+        {ApplicationMap[tab]}
+      </TabPanel>
+    )
+  });
+
+  const tabContextFunctions = {
+    addTab: addTab
+  }
+
+  const tabContextValues = {
+    debug: true,
+    currentTabType: currentTabType
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TabsContext.Provider 
+        value={{...tabContextValues, ...tabContextFunctions}}
+      >
+        <TopLevelMenu 
+          debug
+          currentTabType = {currentTabType}  
+        />
+      </TabsContext.Provider>
+      
+
+      <Tabs selectedIndex={tabIndex} onSelect={(index) => handleTabChange(index)}>
+        <TabList >
+          {tabComponents}
+        </TabList>     
+        {tabPanelComponents}
+      </Tabs>
+    </>
   );
 }
 
 export default App;
+
+// {
+//   tabs.map(tab =>{
+//     <TabPanel key = {tab}>
+//     <span >{tab}</span>
+
+//     </TabPanel>
+//   })
+// }
