@@ -11,12 +11,12 @@ export const TabMenu = () => {
   return (
     <>
       <Menu menuButton={<MenuButton className={"border-0"}>Add Tabs</MenuButton>} transition>
-        <MenuItem>New Database Display</MenuItem>
+        <MenuItem onClick={()=>{addTab("Database")}}>New Database Display</MenuItem>
         <MenuItem onClick={()=>{addTab("Algorithm")}}>New Algorithm Creator</MenuItem>
         <MenuItem onClick={()=>{addTab("Hardware")}}>New Hardware Designer</MenuItem>
-        <MenuDivider />
+        {/* <MenuDivider />
         <MenuItem>IBM Quantum Experience</MenuItem>
-        <MenuItem>Quirk</MenuItem>
+        <MenuItem>Quirk</MenuItem> */}
       </Menu>
     </>
     

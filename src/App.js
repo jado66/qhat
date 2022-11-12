@@ -2,7 +2,7 @@ import './App.css';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import { AlgorithmBuilder, HardwareDesigner } from './applications';
+import { AlgorithmBuilder, DatabaseDisplay, HardwareDesigner } from './applications';
 import TopLevelMenu from './top-level-menu/TopLevelMenu';
 import { useState, createContext } from 'react';
 
@@ -18,11 +18,13 @@ function App() {
 
   const ApplicationMap = {
     "Algorithm": <AlgorithmBuilder/>,
-    "Hardware": <HardwareDesigner/>
+    "Hardware": <HardwareDesigner/>,
+    "Database": <DatabaseDisplay/>
   }
 
   const addTab = (type) => {
     setTabs(prevState => [...prevState, type])
+    setTabIndex(tabs.length)
   }
 
   const handleTabChange = (index) =>{
@@ -39,7 +41,8 @@ function App() {
   
   const appTypeCount = {
     "Algorithm": 0,
-    "Hardware": 0
+    "Hardware": 0,
+    "Database": 0
   }
 
   tabs.forEach((tab) =>{

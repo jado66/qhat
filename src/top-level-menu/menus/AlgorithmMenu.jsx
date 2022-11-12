@@ -5,8 +5,8 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 export function AlgorithmMenu () {
     return (
         <Menu menuButton={<MenuButton className={"border-0"}>Algorithm Options</MenuButton>} transition>
-          <MenuItem>New Algorithm</MenuItem>
-          <MenuItem>Save Algorithm</MenuItem>
+          <MenuItem onClick={()=>{alert("Open new Algorithm")}}>New Algorithm</MenuItem>
+          {/* <MenuItem>Save Algorithm</MenuItem>
           <MenuItem>Duplicate Algorithm</MenuItem>
           <MenuItem>Load Algorithm</MenuItem>
           <MenuItem>Clear Algorithm</MenuItem>
@@ -16,7 +16,7 @@ export function AlgorithmMenu () {
           <MenuDivider />
           <MenuItem>Load Backend</MenuItem>
           <MenuDivider />
-          <MenuItem>Toolbar Options</MenuItem>
+          <MenuItem>Toolbar Options</MenuItem> */}
         </Menu>      
     );
   }
