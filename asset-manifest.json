@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/qhat/static/css/main.cdffa353.css",
+    "main.js": "/qhat/static/js/main.0b262521.js",
+    "static/js/787.bc3ba723.chunk.js": "/qhat/static/js/787.bc3ba723.chunk.js",
+    "index.html": "/qhat/index.html",
+    "main.cdffa353.css.map": "/qhat/static/css/main.cdffa353.css.map",
+    "main.0b262521.js.map": "/qhat/static/js/main.0b262521.js.map",
+    "787.bc3ba723.chunk.js.map": "/qhat/static/js/787.bc3ba723.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cdffa353.css",
+    "static/js/main.0b262521.js"
+  ]
+}
