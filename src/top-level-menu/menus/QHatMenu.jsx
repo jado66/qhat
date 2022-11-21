@@ -1,22 +1,34 @@
-import { Menu, MenuItem, MenuButton, MenuDivider } from '@szhsin/react-menu';
+import { Menu, SubMenu, MenuItem, MenuButton, MenuDivider } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 
+import { useContext } from 'react';
+import { TabsContext } from '../../App';
+
 export const QHatMenu = () => {
+  const {addTab} = useContext(TabsContext)
+
     return (
       <>
         <Menu menuButton={<MenuButton className={"border-0"}>QHat</MenuButton>} transition>
-          <MenuItem>New Window</MenuItem>
+          <MenuItem>Home</MenuItem>
+
+          <SubMenu label="New">
+            <MenuItem onClick={()=>{addTab("Database")}}>Database Display</MenuItem>
+            <MenuItem onClick={()=>{addTab("Algorithm")}}>Algorithm Creator</MenuItem>
+            <MenuItem onClick={()=>{addTab("Hardware")}}>Hardware Designer</MenuItem>
+          </SubMenu>
           <MenuDivider />
-          <MenuItem>Zoom In</MenuItem>
-          <MenuItem>Zoom Out</MenuItem>
-          <MenuItem>Reset Zoom</MenuItem>
-          <MenuItem>Increase Font</MenuItem>
-          <MenuItem>Decrease Font</MenuItem>
+          <MenuItem>Open</MenuItem>
+          <MenuItem>Save</MenuItem>
+          <MenuItem>Save As</MenuItem>
+          <MenuItem>Download</MenuItem>
           <MenuDivider />
-          <MenuItem>Change Theme</MenuItem>
-          <MenuDivider />
-          <MenuItem>About KBR</MenuItem>
+          <MenuItem>Settings</MenuItem>
+
+
+
+         
         </Menu>
       </>
       

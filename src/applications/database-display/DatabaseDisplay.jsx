@@ -1,7 +1,9 @@
+import AppBase from "../../components/AppBase";
+
 export function DatabaseDisplay () {
     return (
-        <>
-            <h2>Algorithm Builder</h2>
-        </>
+        <AppBase>
+            <h2>Database Display</h2>
+        </AppBase>
     );
   }

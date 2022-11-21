@@ -5,21 +5,30 @@ import 'react-tabs/style/react-tabs.css';
 import { AlgorithmBuilder, DatabaseDisplay, HardwareDesigner } from './applications';
 import TopLevelMenu from './top-level-menu/TopLevelMenu';
 import { useState, createContext } from 'react';
-
+import SimplePasswordProtect from './components/SimplePasswordProtect';
 export const TabsContext = createContext();
 
 function App() {
 
+  const [access, setAccess] = useState(true)
   const [tabs, setTabs] = useState(["Algorithm", "Hardware"])
 
   const [tabIndex, setTabIndex] = useState(0);
 
   const [currentTabType, setCurrentTabType] = useState()
 
-  const ApplicationMap = {
-    "Algorithm": <AlgorithmBuilder/>,
-    "Hardware": <HardwareDesigner/>,
-    "Database": <DatabaseDisplay/>
+  // const ApplicationMap = {
+  //   "Algorithm": <AlgorithmBuilder/>,
+  //   "Hardware": <HardwareDesigner/>,
+  //   "Database": <DatabaseDisplay/>
+  // }
+
+  const ApplicationMap = (type, props) =>{
+    switch(type){
+      case "Algorithm": return <AlgorithmBuilder {...props}/>
+      case "Hardware": return <HardwareDesigner {...props}/>
+      case "Database": return <DatabaseDisplay {...props}/>
+    }
   }
 
   const addTab = (type) => {
@@ -55,7 +64,7 @@ function App() {
 
     tabPanelComponents.push(
       <TabPanel key = {tab+"panel"+appTypeCount[tab]}>
-        {ApplicationMap[tab]}
+        {ApplicationMap(tab, {key:tab+"app"+appTypeCount[tab],count:appTypeCount[tab]})}
       </TabPanel>
     )
   });
@@ -71,22 +80,32 @@ function App() {
 
   return (
     <>
-      <TabsContext.Provider 
-        value={{...tabContextValues, ...tabContextFunctions}}
-      >
-        <TopLevelMenu 
-          debug
-          currentTabType = {currentTabType}  
-        />
-      </TabsContext.Provider>
-      
+      {access ?
+        <>
+          <TabsContext.Provider 
+            value={{...tabContextValues, ...tabContextFunctions}}
+          >
+            <TopLevelMenu 
+              debug
+              currentTabType = {currentTabType}  
+            />
+          </TabsContext.Provider>
+          
 
-      <Tabs selectedIndex={tabIndex} onSelect={(index) => handleTabChange(index)}>
-        <TabList >
-          {tabComponents}
-        </TabList>     
-        {tabPanelComponents}
-      </Tabs>
+          <Tabs selectedIndex={tabIndex} onSelect={(index) => handleTabChange(index)}>
+            <TabList >
+              {tabComponents}
+            </TabList>     
+            {tabPanelComponents}
+          </Tabs>
+        </>
+        :
+        <>
+          <SimplePasswordProtect grantAccess = {()=>setAccess(true)} passcode = {"qhat"}/>
+        </>
+      }
+      
+      
     </>
   );
 }
